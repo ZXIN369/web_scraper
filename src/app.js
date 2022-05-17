@@ -1,6 +1,6 @@
 const feedDisplay = document.querySelector('#feed')
 
-fetch('http://localhost:8000/results')
+fetch('http://localhost:8080/feeds')
     .then(response => response.json())
     .then(data => {
         // console.log(data)

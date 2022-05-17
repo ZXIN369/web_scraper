@@ -4,10 +4,13 @@ const express = require('express')
 const cors = require('cors')
 
 const app = express()
-const PORT = 8000
-const URL = 'https://www.theguardian.com/uk'
+const PORT = 8080
+// const URL = 'https://www.theguardian.com/us'
+const URL = 'https://www.cnbc.com/'
 const TAG = 'a'
 const ATTRIBUTE = 'href'
+// const CLASS = '.fc-item__title'
+const CLASS = '.RiverHeadline-headline'
 
 //app.METHOD(PATH, HANDLER)
 // app.get() // get data
@@ -19,16 +22,17 @@ app.use(cors())
 
 app.get('/', (req, res)=> {
     res.json('This web-scraper is running')
+    console.log('::> defaul message')
 })
 
-app.get('/results', (req, res)=> {
+app.get('/feeds', (req, res)=> {
     axios(URL)
         .then(response => {
             const html = response.data
             // console.log(html)
             const $ = cheerio.load(html)
             const articles = []
-            $('.fc-item__title', html).each(function(){
+            $(CLASS, html).each(function(){
                 const title = $(this).text()
                 const url = $(this).find(TAG).attr(ATTRIBUTE)
                 articles.push({
@@ -36,7 +40,8 @@ app.get('/results', (req, res)=> {
                     url
                 })
             })
-            // console.log(articles)
+            console.log('::> show feeds')
+            console.log(articles)
             res.json(articles)
         }).catch(err => console.log(err))
 })
