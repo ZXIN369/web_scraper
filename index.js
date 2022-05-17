@@ -7,10 +7,12 @@ const app = express()
 const PORT = 8080
 // const URL = 'https://www.theguardian.com/us'
 const URL = 'https://www.cnbc.com/'
+// const URL = 'https://seekingalpha.com/market-news/top-news'
 const TAG = 'a'
 const ATTRIBUTE = 'href'
 // const CLASS = '.fc-item__title'
 const CLASS = '.RiverHeadline-headline'
+// const CLASS = '.post-list-item-title'
 
 //app.METHOD(PATH, HANDLER)
 // app.get() // get data
@@ -41,7 +43,7 @@ app.get('/feeds', (req, res)=> {
                 })
             })
             console.log('::> show feeds')
-            console.log(articles)
+            // console.log(articles)
             res.json(articles)
         }).catch(err => console.log(err))
 })
